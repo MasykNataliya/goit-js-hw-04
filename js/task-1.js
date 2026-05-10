@@ -1,16 +1,19 @@
-function slugify(title) {
-  return title.toLowerCase().split(" ").join("-");
+function isEnoughCapacity(products, containerSize) {
+  const productsVolumes = Object.values(products);
+  let total = 0;
+  for (const volume of productsVolumes) {
+    if (volume !== 0) {
+      total += volume;
+    }
+  }
+  return total <= containerSize;
 }
 
-// Перевірка роботи
-console.log(slugify("Arrays for beginners"));
-// "arrays-for-beginners"
+// Перевірка
+console.log(isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
 
-console.log(slugify("English for developer"));
-// "english-for-developer"
+console.log(isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
 
-console.log(slugify("Ten secrets of JavaScript"));
-// "ten-secrets-of-javascript"
+console.log(isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
 
-console.log(slugify("How to become a JUNIOR developer in TWO WEEKS"));
-// "how-to-become-a-junior-developer-in-two-weeks"
+console.log(isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false
